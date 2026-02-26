@@ -1,0 +1,7 @@
+crewai==0.130.0 
+fastapi==0.133.1
+crewai-tools==0.47.1
+uvicorn==0.41.0
+chromadb==0.5.23
+python-multipart==0.0.22
+google-auth==2.48.0
