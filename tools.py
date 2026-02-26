@@ -16,9 +16,8 @@ class FinancialDocumentTool(BaseTool):
         "Tool to read data from a pdf file from a path"
     )
     
-    def _run(self, path: str):
-        """Tool to read data from a pdf file from a path
-
+    def _run(self, path: str='data/sample.pdf'):
+        """
         Args:
             path (str): Path of the pdf file.
 

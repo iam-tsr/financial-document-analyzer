@@ -1,7 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 import os
 import uuid
-import asyncio
 
 from crewai import Crew, Process
 from agents import financial_analyst
@@ -79,4 +78,4 @@ async def analyze_document(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=False)

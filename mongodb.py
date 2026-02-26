@@ -8,14 +8,15 @@ load_dotenv()
 class MongoDBHandler:
     def __init__(self):
         try:
-            self.client = pymongo.MongoClient(os.getenv("MONGO_DB"))
-            self.db = self.client['data']
-            self.collection = self.db['user-data']
+            self.client = pymongo.MongoClient(os.getenv("MONGODB_CONNECTION"))
+            self.db = self.client[os.getenv("MONGODB_DATABASE")]
+            self.collection = self.db[os.getenv("MONGODB_COLLECTION")]
 
             print("Connected to MongoDB successfully.")
         except Exception as e:
             print(f"Error connecting to MongoDB: {e}")
 
+    ## Method to store file data, query, and analysis result in MongoDB
     def store_data(self, file_path: str, query: str, analysis_result:str):
         with open(file_path, "rb") as f:
             binary_data = f.read()

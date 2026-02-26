@@ -2,16 +2,13 @@
 import os
 from dotenv import load_dotenv
 load_dotenv()
-
-
 from crewai import Agent
-
 from tools import search_tool, FinancialDocumentTool
 
 ### Loading LLM
 from crewai import LLM
 
-llm = LLM( # Defined LLM with Gemini 2.5 Flash Lite & Gemini API key from .env
+llm = LLM(                                      # Defined LLM with Gemini 2.5 Flash Lite & Gemini API key from .env
     model="gemini/gemini-2.5-flash-lite",
     api_key=os.getenv("GEMINI_API_KEY"),
     temperature=0.7,
