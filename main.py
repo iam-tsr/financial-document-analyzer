@@ -25,7 +25,7 @@ async def root():
 
 @app.post("/analyze")
 async def analyze_financial_document(
-file: UploadFile = File(...),
+    file: UploadFile = File(...),
     query: str = Form(default="Analyze this financial document for investment insights")
 ):
     """Analyze financial document and provide comprehensive investment recommendations"""
@@ -57,7 +57,7 @@ file: UploadFile = File(...),
         return {
             "status": "success",
             "query": query,
-            # "analysis": str(response),
+            "analysis": str(response),
             "file_processed": file.filename
         }
         

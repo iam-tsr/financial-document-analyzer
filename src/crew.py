@@ -3,7 +3,7 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 
-from src.tools.custom_tool import FinancialDocumentTool, InvestmentTool, RiskTool
+from src.tools.custom_tool import FinancialDocumentTool, search_tool
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
@@ -21,53 +21,15 @@ class FinancialDocumentAnalyser():
     
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
-    @agent
-    def search(self) -> Agent:
-        return 
+    
     @agent
     def financial_analyst(self) -> Agent:
         return Agent(
-            config=self.agents_config['financial_analyst'], # type: ignore[index]
+            config=self.agents_config['financial_analyst'],
             verbose=True,
             memory=True,
-            tools=[FinancialDocumentTool.read_data_tool],
-            max_iter=1,
-            max_rpm=1,
-            allow_delegation=True  # Allow delegation to other specialists
-        )
-
-    @agent
-    def verifier(self) -> Agent:
-        return Agent(
-            config=self.agents_config['verifier'], # type: ignore[index]
-            verbose=True,
-            memory=True,
-            tools=[InvestmentTool().analyze_investment_tool],
-            max_iter=1,
-            max_rpm=1,
-            allow_delegation=True  # Allow delegation to other specialists
-        )
-    
-    @agent
-    def risk_assessor(self) -> Agent:
-        return Agent(
-            config=self.agents_config['risk_assessor'], # type: ignore[index]
-            verbose=True,
-            memory=True,
-            tools=[RiskTool().create_risk_assessment_tool],
-            max_iter=1,
-            max_rpm=1,
-            allow_delegation=True  # Allow delegation to other specialists
-        )
-    
-    @agent
-    def investment_advisor(self) -> Agent:
-        return Agent(
-            config=self.agents_config['investment_advisor'], # type: ignore[index]
-            verbose=True,
-            memory=True,
-            max_iter=1,
-            max_rpm=1,
+            tools=[FinancialDocumentTool(), search_tool],
+            max_iter=5,
             allow_delegation=True  # Allow delegation to other specialists
         )
 
@@ -77,25 +39,7 @@ class FinancialDocumentAnalyser():
     @task
     def analyze_financial_document(self) -> Task:
         return Task(
-            config=self.tasks_config['analyze_financial_document'], # type: ignore[index]
-        )
-
-    @task
-    def investment_analysis(self) -> Task:
-        return Task(
-            config=self.tasks_config['investment_analysis'], # type: ignore[index]
-        )
-    
-    @task
-    def risk_assessment(self) -> Task:
-        return Task(
-            config=self.tasks_config['risk_assessment'], # type: ignore[index]
-        )
-    
-    @task
-    def verification(self) -> Task:
-        return Task(
-            config=self.tasks_config['verification'], # type: ignore[index]
+            config=self.tasks_config['analyze_financial_document'],
         )
 
     @crew
