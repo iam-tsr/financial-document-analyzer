@@ -6,9 +6,9 @@ from crewai import Crew, Process
 from agents import financial_analyst
 from task import analyze_financial_document
 
-from mongodb import MongoDBHandler
+# from mongodb import MongoDBHandler
 
-mongo = MongoDBHandler()
+# mongo = MongoDBHandler()
 
 app = FastAPI(title="Financial Document Analyzer")
 
@@ -56,7 +56,7 @@ async def analyze_document(
         response = run_crew(query=query.strip(), file_path=file_path)
         
         # Store data in MongoDB
-        mongo.store_data(file_path, query, str(response))
+        # mongo.store_data(file_path, query, str(response))
         
         return {
             "status": "success",
